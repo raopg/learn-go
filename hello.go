@@ -7,9 +7,14 @@ func Hello() string {
 	return "Hello, world!"
 }
 
+const englishHelloPrefix = "Hello, "
+
 // HelloYou takes inputString and returns the string "Hello, {inputString}"
 func HelloYou(name string) string {
-	return "Hello, " + name
+	if name == "" {
+		name = "World"
+	}
+	return englishHelloPrefix + name
 }
 
 func main() {

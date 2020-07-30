@@ -12,10 +12,23 @@ func TestHello(t *testing.T) {
 }
 
 func TestHelloYou(t *testing.T) {
-	output := HelloYou("Prateek")
-	expected := "Hello, Prateek"
 
-	if output != expected {
-		t.Errorf("Output: %q \nExpected Output: %q", output, expected)
+	assertCorrectMessage := func(t *testing.T, output, expected string) {
+		t.Helper()
+		if output != expected {
+			t.Errorf("Output: %q \nExpected Output: %q", output, expected)
+		}
 	}
+
+	t.Run("Saying hello to people", func(t *testing.T) {
+		output := HelloYou("Prateek")
+		expected := "Hello, Prateek"
+		assertCorrectMessage(t, output, expected)
+	})
+
+	t.Run("Saying Hello world when no person is given", func(t *testing.T) {
+		output := HelloYou("")
+		expected := "Hello, World"
+		assertCorrectMessage(t, output, expected)
+	})
 }
