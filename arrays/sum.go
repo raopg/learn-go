@@ -20,3 +20,12 @@ func SumAll(numbersToSum ...[]int) []int { //...syntax is to highlight the a var
 
 	return sums
 }
+
+func SumAllTail(numbersToSum ...[]int) []int {
+	var sums []int
+	for _, nums := range numbersToSum {
+		sums = append(sums, ArraySum(nums[1:])) // Slices can be sliced!
+	}
+
+	return sums
+}

@@ -51,3 +51,4 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
 12. len => provides the length of an array or slice.
 13. make() can be used to create slices/arrays with specific data types (e.g slice of slices)
 14. append() method can be used to work with slices (just like Python). The syntax is `append(slice, newItem)`
+15. Slices can be sliced! nums[i:j] will return a slice of nums from index i to j - 1
