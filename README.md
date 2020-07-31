@@ -47,3 +47,7 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
 8. In Go, there are no while, do-while loops. All iterative processes involve a for loop.
 9. We can write benchmark tests for functions using the in-built `testing` module
 10. Arrays - arrays are of fixed sizes and type. Slices are resizable arrays - there exists a 'slice' data type.
+11. Go provides a test coverage tool. Ideally, we want this to be as close to 100% as possible. In order to check, run `go test -cover`
+12. len => provides the length of an array or slice.
+13. make() can be used to create slices/arrays with specific data types (e.g slice of slices)
+14. append() method can be used to work with slices (just like Python). The syntax is `append(slice, newItem)`
