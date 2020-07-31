@@ -44,3 +44,4 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
         return
     }
 ```
+8. In Go, there are no while, do-while loops. All iterative processes involve a for loop.
