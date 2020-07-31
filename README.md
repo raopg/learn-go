@@ -31,3 +31,16 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
 
     }
 ```
+7. Named return values are those variables you can specify in the function signature. They will be initialized with a default value. We can return at any point in the function without specifying the return variable, and the specified named return value will be returned to the point of the function call. Ex:
+
+```
+    func callingFn(...){
+        //do stuff
+        val := calledFn(...)
+        //do stuff
+    }
+    func calledFn(...)(namedReturn string) {
+        //do stuff
+        return
+    }
+```
