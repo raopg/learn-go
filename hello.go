@@ -9,6 +9,7 @@ func Hello() string {
 
 const englishHelloPrefix = "Hello, "
 const spanishHelloPrefix = "Hola, "
+const frenchHelloPrefix = "Bonjour, "
 
 // HelloYou takes inputString and returns the string "Hello, {inputString}"
 func HelloYou(name string, language string) string {
@@ -17,6 +18,9 @@ func HelloYou(name string, language string) string {
 	}
 	if language == "Spanish" {
 		return spanishHelloPrefix + name
+	}
+	else if languange == "French" {
+		return frenchHelloPrefix + name
 	}
 	return englishHelloPrefix + name
 }
