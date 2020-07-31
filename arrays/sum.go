@@ -25,7 +25,11 @@ func SumAll(numbersToSum ...[]int) []int { //...syntax is to highlight the a var
 func SumAllTail(numbersToSum ...[]int) []int {
 	var sums []int
 	for _, nums := range numbersToSum {
-		sums = append(sums, ArraySum(nums[1:])) // Slices can be sliced!
+		if len(nums) == 0 {
+			sums = append(sums, 0)
+		} else {
+			sums = append(sums, ArraySum(nums[1:])) // Slices can be sliced!
+		}
 	}
 
 	return sums
