@@ -19,23 +19,19 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-
-	checkArea := func(t *testing.T, shape Shape, expected float64) {
-		t.Helper()
-		output := shape.Area()
-
-		if output != expected {
-			t.Errorf("Expected = %g\nActual Output = %g", expected, output)
-		}
+	// table-driven tests => where tables of data are used to test a function
+	areaTest := []struct {
+		shape    Shape
+		expected float64
+	}{
+		{Rectangle{12, 6}, 72.0},
+		{Circle{10}, 314.1592653589793},
 	}
 
-	t.Run("test rectangle area", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 5.0}
-		checkArea(t, rectangle, 50.0)
-	})
-
-	t.Run("test circle area", func(t *testing.T) {
-		circle := Circle{10.0}
-		checkArea(t, circle, 314.1592653589793)
-	})
+	for _, test := range areaTest {
+		output := test.shape.Area()
+		if output != test.expected {
+			t.Errorf("Expected = %g\nActual Output = %g", test.expected, output)
+		}
+	}
 }
