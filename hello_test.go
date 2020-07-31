@@ -21,14 +21,20 @@ func TestHelloYou(t *testing.T) {
 	}
 
 	t.Run("Saying hello to people", func(t *testing.T) {
-		output := HelloYou("Prateek")
+		output := HelloYou("Prateek", "")
 		expected := "Hello, Prateek"
 		assertCorrectMessage(t, output, expected)
 	})
 
 	t.Run("Saying Hello world when no person is given", func(t *testing.T) {
-		output := HelloYou("")
+		output := HelloYou("", "")
 		expected := "Hello, World"
+		assertCorrectMessage(t, output, expected)
+	})
+
+	t.Run("Saying hello in Spanish", func(t *testing.T) {
+		output := HelloYou("Jeff", "Spanish")
+		expected := "Hola, Jeff"
 		assertCorrectMessage(t, output, expected)
 	})
 }

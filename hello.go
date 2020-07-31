@@ -8,11 +8,15 @@ func Hello() string {
 }
 
 const englishHelloPrefix = "Hello, "
+const spanishHelloPrefix = "Hola, "
 
 // HelloYou takes inputString and returns the string "Hello, {inputString}"
-func HelloYou(name string) string {
+func HelloYou(name string, language string) string {
 	if name == "" {
 		name = "World"
+	}
+	if language == "Spanish" {
+		return spanishHelloPrefix + name
 	}
 	return englishHelloPrefix + name
 }
