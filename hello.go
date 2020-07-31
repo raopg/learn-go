@@ -16,12 +16,19 @@ func HelloYou(name string, language string) string {
 	if name == "" {
 		name = "World"
 	}
-	if language == "Spanish" {
-		return spanishHelloPrefix + name
-	} else if language == "French" {
-		return frenchHelloPrefix + name
+
+	prefix := ""
+
+	switch language {
+	case "French":
+		prefix = frenchHelloPrefix
+	case "Spanish":
+		prefix = spanishHelloPrefix
+	default:
+		prefix = englishHelloPrefix
 	}
-	return englishHelloPrefix + name
+
+	return prefix + name
 
 }
 
