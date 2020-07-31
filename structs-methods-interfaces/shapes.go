@@ -2,6 +2,11 @@ package shapes
 
 import "math"
 
+//Shape interface contains common functions for all shapes
+type Shape interface {
+	Area() float64
+}
+
 //Rectangle struct defines the data-type for a rectangle's measurements
 type Rectangle struct {
 	length  float64
