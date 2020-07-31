@@ -21,6 +21,7 @@ func SumAll(numbersToSum ...[]int) []int { //...syntax is to highlight the a var
 	return sums
 }
 
+//SumAllTail function takes a slice of slices and returns the tail sum -> sums of each slice except the first elem.
 func SumAllTail(numbersToSum ...[]int) []int {
 	var sums []int
 	for _, nums := range numbersToSum {
