@@ -16,9 +16,14 @@ func HelloYou(name string, language string) string {
 	if name == "" {
 		name = "World"
 	}
+	return getGreetingPrefix(language) + name
 
-	prefix := ""
+}
 
+//getGreetingPrefix determines the greeting prefix based on the input language
+func getGreetingPrefix(language string) (prefix string) {
+	// Notice how we a named return value. Here we dont have to return the value specifically
+	// The prefix var is also initialized to a default val. For strings, this is ""
 	switch language {
 	case "French":
 		prefix = frenchHelloPrefix
@@ -27,9 +32,7 @@ func HelloYou(name string, language string) string {
 	default:
 		prefix = englishHelloPrefix
 	}
-
-	return prefix + name
-
+	return
 }
 
 func main() {
