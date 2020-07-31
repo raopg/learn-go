@@ -18,11 +18,11 @@ func HelloYou(name string, language string) string {
 	}
 	if language == "Spanish" {
 		return spanishHelloPrefix + name
-	}
-	else if languange == "French" {
+	} else if language == "French" {
 		return frenchHelloPrefix + name
 	}
 	return englishHelloPrefix + name
+
 }
 
 func main() {

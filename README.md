@@ -9,3 +9,25 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
 3. Tests are always written in files called `<module-to-be-tested>_test.go`
 4. By default, all functions within a module are exported out to other files (sounds like a nightmare for functions with same names)
 5. Good Go practice involves writing a comment for each function that starts with the function name (linter rules)
+6. If-else-if statements: the else and else if statements need to be in the same line as the closing bracket of the if block. Ex:
+
+```
+    CORRECT
+    if <condition>{
+        //stuff
+    } else if <condition-2> {
+        //stuff
+    } else {
+
+    }
+    INCORRECT
+    if <condition>{
+        //stuff
+    } 
+    else if <condition-2> {
+        //stuff
+    } 
+    else {
+
+    }
+```
