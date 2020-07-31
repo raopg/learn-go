@@ -45,3 +45,5 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
     }
 ```
 8. In Go, there are no while, do-while loops. All iterative processes involve a for loop.
+9. We can write benchmark tests for functions using the in-built `testing` module
+10. Arrays - arrays are of fixed sizes and type. Slices are resizable arrays - there exists a 'slice' data type.
