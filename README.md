@@ -62,5 +62,5 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
     }
 ```
 19. Interfaces -> this can represent high level structures that combine common functionality between multiple structs.
-Much like a parent class, an interface will capture common functionality. So if the type you pass in wherever a Shape
-type is required, if all the fields that are present in the interface is present in the passed type, Go compiles the code.
+Much like a parent class, an interface will capture common functionality. So if the type you pass in wherever an interface type is required, if all the fields that are present in the interface is present in the passed type, Go compiles the code.
+20. Table driven tests -> when we want to test our function on a set of different inputs. If the function to be tested belongs to an interface, we can test it against multiple data types/structs that belong to the interface.
