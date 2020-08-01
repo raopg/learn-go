@@ -3,19 +3,30 @@ package dictionary
 import "testing"
 
 func TestSearch(t *testing.T) {
-	t.Run("search a word", func(t *testing.T) {
+	dictionary := Dictionary{"test": "This is a test"}
+	t.Run("search a known word", func(t *testing.T) {
 
-		dictionary := Dictionary{"test": "This is a test"}
-
-		output := Search(dictionary, "test")
+		output, _ := dictionary.Search("test")
 		expected := "This is a test"
 
-		assertSearchEquals(t, output, expected)
+		assertStringEquals(t, output, expected)
 
+	})
+
+	t.Run("search an unknown word", func(t *testing.T) {
+
+		_, err := dictionary.Search("unknown")
+		expected := "Could not locate the word in dictionary"
+
+		if err == nil {
+			t.Fatal("Expected error, did not get one")
+		}
+
+		assertStringEquals(t, err.Error(), expected)
 	})
 }
 
-func assertSearchEquals(t *testing.T, output string, expected string) {
+func assertStringEquals(t *testing.T, output string, expected string) {
 	t.Helper()
 	if output != expected {
 		t.Errorf("Expected: %s\nActual Output: %s", expected, output)
