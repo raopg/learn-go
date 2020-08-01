@@ -33,12 +33,15 @@ func (b Bitcoin) String() string {
 	return fmt.Sprintf("%d BTC", b)
 }
 
+//ErrInsufficientFunds holds the exact error message for when overdrafting withdrawals
+var ErrInsufficientFunds = errors.New("Cannot withdraw; Insufficient funds")
+
 //Withdraw function allows withdrawal of a specific amount of BTC
 func (w *Wallet) Withdraw(amount Bitcoin) error {
 
 	//We want to throw an error if the amount is greater than current balance
 	if amount > w.Balance() {
-		return errors.New("Insufficient funds")
+		return ErrInsufficientFunds
 	}
 
 	w.balance -= amount

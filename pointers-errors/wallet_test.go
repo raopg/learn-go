@@ -6,17 +6,17 @@ func TestWallet(t *testing.T) {
 	assertBTCEquals := func(t *testing.T, output, expected Bitcoin) {
 		t.Helper()
 		if expected != output {
-			t.Errorf("Expected = %s\nOutput = %s", expected, output)
+			t.Errorf("Expected = %q\nOutput = %q", expected, output)
 		}
 	}
 
-	assertError := func(t *testing.T, output error, expected string) {
+	assertError := func(t *testing.T, output error, expected error) {
 		t.Helper()
 		if output == nil {
 			t.Fatal("Expected error, did not catch one")
 		}
 
-		if output.Error() != expected {
+		if output != expected {
 			t.Errorf("Expected = %s\nOutput = %s", expected, output)
 		}
 	}
@@ -52,7 +52,7 @@ func TestWallet(t *testing.T) {
 
 		assertBTCEquals(t, output, startingBalance)
 
-		assertError(t, err, "Insufficient funds")
+		assertError(t, err, ErrInsufficientFunds)
 
 	})
 }
