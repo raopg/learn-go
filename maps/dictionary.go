@@ -17,6 +17,9 @@ const (
 	//ErrWordExists is an error thrown by Add function when the word to be added already
 	//exists within the dictionary
 	ErrWordExists = DictErr("The word already exists in the dictionary")
+	//ErrWordDoesNotExist is an error thrown by Update function when the caller tries to update
+	// a word that does not exist within the dictionary.
+	ErrWordDoesNotExist = DictErr("The word does not exist in the dictionary")
 )
 
 //Search takes a dictionary and a search word, and returns the corrsponding value
@@ -47,6 +50,16 @@ func (d Dictionary) Add(word, meaning string) error {
 }
 
 //Update function takes a word and its new meaning and updates the dictionary with new meaning
-func (d Dictionary) Update(word, meaning string) {
-	d[word] = meaning
+func (d Dictionary) Update(word, meaning string) error {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		return ErrWordDoesNotExist
+	case nil:
+		d[word] = meaning
+		return nil
+	default:
+		return err
+	}
 }

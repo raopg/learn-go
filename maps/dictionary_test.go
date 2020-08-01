@@ -63,6 +63,20 @@ func TestUpdate(t *testing.T) {
 		assertDefinition(t, d, word, newVal)
 
 	})
+	t.Run("Update a new value", func(t *testing.T) {
+		word := "test"
+		val := "Updated!"
+		d := Dictionary{}
+
+		err := d.Update(word, val)
+
+		if err == nil {
+			t.Fatal("Expected error, got none")
+		}
+
+		assertErrorEquals(t, err, ErrWordDoesNotExist)
+
+	})
 }
 
 func assertStringEquals(t *testing.T, output string, expected string) {
