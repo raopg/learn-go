@@ -65,3 +65,13 @@ This repo contains all of my exercises for the TDD-based Go learning course. Sou
 Much like a parent class, an interface will capture common functionality. So if the type you pass in wherever an interface type is required, if all the fields that are present in the interface is present in the passed type, Go compiles the code.
 20. Table driven tests -> when we want to test our function on a set of different inputs. If the function to be tested belongs to an interface, we can test it against multiple data types/structs that belong to the interface.
 21. Pointers -> same concept in C/C++, with ONE exception -> We dont dereference pointers. So if we try to access p.data, we can. We don't need p->data or (*p).data.
+22. Maps -> very similar to dicts in Python. They are, however, passed by reference. So there is no need to create pointers for them. However, maps can be nil, and might cause panic. In order to make sure that map is initialzed to empty map, be sure to initialize like - 
+
+```
+    DO
+    var myMap map[string]string{}
+    or
+    var myMap = make(map[string]string)
+    DONT
+    var myMap map[string]string
+```

@@ -18,3 +18,8 @@ func (d Dictionary) Search(word string) (string, error) {
 	}
 	return definition, nil
 }
+
+//Add function adds a new word, meaning pair to the dictionary.
+func (d Dictionary) Add(word, meaning string) {
+	d[word] = meaning
+}

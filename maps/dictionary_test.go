@@ -26,6 +26,23 @@ func TestSearch(t *testing.T) {
 	})
 }
 
+func TestAdd(t *testing.T) {
+	t.Run("Add a new word to dictionary", func(t *testing.T) {
+		d := Dictionary{}
+		d.Add("test", "this is just a test")
+
+		expected := "this is just a test"
+
+		output, err := d.Search("test")
+
+		if err != nil {
+			t.Fatal("Found an error when expected none while adding a valid entry")
+		}
+
+		assertStringEquals(t, output, expected)
+	})
+}
+
 func assertStringEquals(t *testing.T, output string, expected string) {
 	t.Helper()
 	if output != expected {
