@@ -51,6 +51,20 @@ func TestAdd(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	t.Run("Update an existing value", func(t *testing.T) {
+		word := "test"
+		oldVal := "This is outdated; update me!"
+		newVal := "Updated!"
+		d := Dictionary{word: oldVal}
+
+		d.Update(word, newVal)
+
+		assertDefinition(t, d, word, newVal)
+
+	})
+}
+
 func assertStringEquals(t *testing.T, output string, expected string) {
 	t.Helper()
 	if output != expected {

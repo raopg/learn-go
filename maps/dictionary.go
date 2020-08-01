@@ -45,3 +45,8 @@ func (d Dictionary) Add(word, meaning string) error {
 	return nil
 
 }
+
+//Update function takes a word and its new meaning and updates the dictionary with new meaning
+func (d Dictionary) Update(word, meaning string) {
+	d[word] = meaning
+}
