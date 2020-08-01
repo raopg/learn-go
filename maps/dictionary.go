@@ -63,3 +63,8 @@ func (d Dictionary) Update(word, meaning string) error {
 		return err
 	}
 }
+
+//Delete function takes a word and deletes from the dictionary
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
+}
