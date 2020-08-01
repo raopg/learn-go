@@ -9,6 +9,13 @@ func TestWallet(t *testing.T) {
 			t.Errorf("Expected = %s\nOutput = %s", expected, output)
 		}
 	}
+
+	assertError := func(t *testing.T, err error) {
+		t.Helper()
+		if err == nil {
+			t.Error("Expected an error but got none.")
+		}
+	}
 	t.Run("Deposit", func(t *testing.T) {
 		wallet := Wallet{}
 
@@ -30,6 +37,18 @@ func TestWallet(t *testing.T) {
 		expected := Bitcoin(10)
 
 		assertBTCEquals(t, output, expected)
+
+	})
+	t.Run("Withdraw insufficient funds", func(t *testing.T) {
+		startingBalance := Bitcoin(20)
+		wallet := Wallet{balance: startingBalance}
+		err := wallet.Withdraw(Bitcoin(30))
+
+		output := wallet.Balance()
+
+		assertBTCEquals(t, output, startingBalance)
+
+		assertError(t, err)
 
 	})
 }

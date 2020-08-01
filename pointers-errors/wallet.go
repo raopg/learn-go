@@ -1,6 +1,9 @@
 package wallet
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 //Bitcoin type to represent the contents of the balance
 type Bitcoin int
@@ -31,6 +34,13 @@ func (b Bitcoin) String() string {
 }
 
 //Withdraw function allows withdrawal of a specific amount of BTC
-func (w *Wallet) Withdraw(amount Bitcoin) {
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+
+	//We want to throw an error if the amount is greater than current balance
+	if amount > w.Balance() {
+		return errors.New("Insufficient funds")
+	}
+
 	w.balance -= amount
+	return nil
 }
