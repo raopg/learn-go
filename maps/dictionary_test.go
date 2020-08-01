@@ -29,17 +29,25 @@ func TestSearch(t *testing.T) {
 func TestAdd(t *testing.T) {
 	t.Run("Add a new word to dictionary", func(t *testing.T) {
 		d := Dictionary{}
-		d.Add("test", "this is just a test")
+		word := "test"
+		addError := d.Add(word, "this is just a test")
 
 		expected := "this is just a test"
 
-		output, err := d.Search("test")
+		assertDefinition(t, d, word, expected)
+		assertErrorEquals(t, addError, nil)
 
-		if err != nil {
-			t.Fatal("Found an error when expected none while adding a valid entry")
-		}
+	})
 
-		assertStringEquals(t, output, expected)
+	t.Run("Add an existing  to dictionary", func(t *testing.T) {
+		word := "test"
+		definition := "this is a test"
+
+		d := Dictionary{word: definition}
+		err := d.Add("test", "this is just a test")
+
+		assertErrorEquals(t, err, ErrWordExists)
+		assertDefinition(t, d, word, definition)
 	})
 }
 
@@ -55,5 +63,19 @@ func assertErrorEquals(t *testing.T, err error, expected error) {
 
 	if err != expected {
 		t.Errorf("Expected = %q\n Actual error = %q\n", expected, err)
+	}
+}
+
+func assertDefinition(t *testing.T, d Dictionary, word, expectedDefinition string) {
+	t.Helper()
+
+	definition, err := d.Search(word)
+
+	if err != nil {
+		t.Fatal("Did not expected an error but received one")
+	}
+
+	if definition != expectedDefinition {
+		t.Errorf("Expected = %s\nActual definition = %s", expectedDefinition, definition)
 	}
 }

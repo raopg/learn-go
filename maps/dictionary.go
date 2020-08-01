@@ -19,7 +19,22 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
+//ErrWordExists is an error thrown by Add function when the word to be added already
+//exists within the dictionary
+var ErrWordExists = errors.New("The word already exists in the dictionary")
+
 //Add function adds a new word, meaning pair to the dictionary.
-func (d Dictionary) Add(word, meaning string) {
-	d[word] = meaning
+func (d Dictionary) Add(word, meaning string) error {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		d[word] = meaning
+	case nil:
+		return ErrWordExists
+	default:
+		return err
+	}
+	return nil
+
 }
