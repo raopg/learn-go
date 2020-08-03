@@ -33,6 +33,26 @@ func (s *SpySleeper) Sleep() {
 	s.Calls++
 }
 
+//Constants to recongize ops
+const write = "Write"
+const sleep = "Sleep"
+
+//CountdownOperationsSpy checks the order of operations within the countdown function
+type CountdownOperationsSpy struct {
+	Calls []string
+}
+
+//Sleep implemented by the CountdownOperationsSpy struct
+func (s *CountdownOperationsSpy) Sleep() {
+	s.Calls = append(s.Calls, sleep)
+}
+
+//Write function implemented by CountdownOperations struct
+func (s *CountdownOperationsSpy) Write(p []byte) (n int, err error) {
+	s.Calls = append(s.Calls, write)
+	return
+}
+
 //Countdown function counts down from 3 to 1 and then prints go
 func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := countDownCount; i > 0; i-- {

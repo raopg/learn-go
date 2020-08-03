@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 )
 
@@ -24,16 +25,43 @@ Go!`
 		assertSleeperCalls(t, spySleeper.Calls, 4)
 
 	})
+
+	t.Run("sleep before every write", func(t *testing.T) {
+		spySleepPrinter := &CountdownOperationsSpy{}
+		Countdown(spySleepPrinter, spySleepPrinter)
+
+		expected := []string{
+			sleep,
+			write,
+			sleep,
+			write,
+			sleep,
+			write,
+			sleep,
+			write,
+		}
+
+		assertOperationsEqual(t, spySleepPrinter.Calls, expected)
+	})
 }
 
 func assertStringEquals(t *testing.T, output, expected string) {
+	t.Helper()
 	if output != expected {
 		t.Errorf("Expected: %q\nActual Output: %q", expected, output)
 	}
 }
 
 func assertSleeperCalls(t *testing.T, actualCalls, expectedCalls int) {
+	t.Helper()
 	if actualCalls != expectedCalls {
 		t.Errorf("Expected %d sleep calls\nGot %d sleep calls", expectedCalls, actualCalls)
+	}
+}
+
+func assertOperationsEqual(t *testing.T, output, expected []string) {
+	t.Helper()
+	if !reflect.DeepEqual(output, expected) {
+		t.Errorf("Expected %q order of operations.\nGot: %q", expected, output)
 	}
 }
