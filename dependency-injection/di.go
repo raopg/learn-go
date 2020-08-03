@@ -1,9 +1,9 @@
-package di
+package main
 
 import (
 	"fmt"
 	"io"
-	"os"
+	"net/http"
 )
 
 //Greet function uses the bytes buffer to greet someone
@@ -12,6 +12,15 @@ func Greet(writer io.Writer, name string) {
 }
 
 //Main function to use Greet function
+// func main() {
+// 	Greet(os.Stdout, "Prateek")
+// }
+
+//MyGreetHandler function is a HTTP handler for the Greet func.
+func MyGreetHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "Prateek")
+}
+
 func main() {
-	Greet(os.Stdout, "Prateek")
+	http.ListenAndServe(":5000", http.HandlerFunc(MyGreetHandler))
 }
