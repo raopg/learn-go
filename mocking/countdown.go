@@ -33,6 +33,27 @@ func (s *SpySleeper) Sleep() {
 	s.Calls++
 }
 
+//ConfigurableSleeper is a variant of Sleeper interface that allows you to configure the time
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
+//Sleep method of ConfigurableSleeper
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
+}
+
+//SpyTime is a struct that holds the sleep timer
+type SpyTime struct {
+	durationSlept time.Duration
+}
+
+//Sleep implementation of SpyTime
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
+
 //Constants to recongize ops
 const write = "Write"
 const sleep = "Sleep"
