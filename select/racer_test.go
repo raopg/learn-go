@@ -1,17 +1,29 @@
 package main
 
-import "testing"
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+	"time"
+)
 
 func TestRacer(t *testing.T) {
 	t.Run("test fastURL is returned", func(t *testing.T) {
-		fastURL := "https://google.com"
-		slowURL := "https://raopg-chat-application.herokuapp.com"
+		slowServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(20 * time.Millisecond)
+			w.WriteHeader(http.StatusOK)
+		}))
 
-		expected := fastURL
+		fastServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+		}))
 
-		output := Racer(fastURL, slowURL)
+		slowURL := slowServer.URL
+		fastURL := fastServer.URL
 
-		assertStringEquals(t, output, expected)
+		output := Racer(slowURL, fastURL)
+
+		assertStringEquals(t, output, fastURL)
 
 	})
 }
