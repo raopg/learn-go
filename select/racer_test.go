@@ -18,9 +18,26 @@ func TestRacer(t *testing.T) {
 		slowURL := slowServer.URL
 		fastURL := fastServer.URL
 
-		output := Racer(slowURL, fastURL)
+		output, err := Racer(slowURL, fastURL)
+
+		if err != nil {
+			t.Fatal("Did not expect an error but found one")
+		}
 
 		assertStringEquals(t, output, fastURL)
+
+	})
+
+	t.Run("returns an error if Racer takes more than 10seconds", func(t *testing.T) {
+		server := makeDelayedServer(25 * time.Millisecond)
+
+		defer server.Close()
+
+		_, err := ConfigurableRacer(server.URL, server.URL, 20*time.Millisecond)
+
+		if err == nil {
+			t.Error("Expected an error but did not get one")
+		}
 
 	})
 }

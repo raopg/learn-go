@@ -1,16 +1,32 @@
 package racer
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+	"time"
+)
 
-//Racer is a function that takes two urls and returns the faster URL.
+const tenSecondTimeout = time.Duration(10 * time.Second)
+
+//Racer implements ConfigurableRacer for the real-world application.
+func Racer(a, b string) (winner string, err error) {
+	winner, err = ConfigurableRacer(a, b, tenSecondTimeout)
+	return
+}
+
+//ConfigurableRacer is a function that takes two urls and returns the faster URL.
 //Returns error if neither URL responds within 10seconds
-func Racer(a, b string) string {
+//We can use this function to test, and Racer(implementation of this fn) for actual use
+func ConfigurableRacer(a, b string, timeout time.Duration) (string, error) {
 	select {
 	case <-ping(a):
-		return a
+		return a, nil
 	case <-ping(b):
-		return b
+		return b, nil
+	case <-time.After(timeout):
+		return "", fmt.Errorf("Timed out waiting for %s and %s", a, b)
 	}
+
 }
 
 //ping function takes a url and pings it thru a channel
