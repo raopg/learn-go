@@ -1,4 +1,4 @@
-package main
+package racer
 
 import (
 	"net/http"
@@ -8,15 +8,8 @@ import (
 //Racer is a function that takes two urls and returns the faster URL.
 //Returns error if neither URL responds within 10seconds
 func Racer(a, b string) (winner string) {
-	//Start 'a' timer, get 'a' and capture time since.
-	startA := time.Now()
-	http.Get(a)
-	aDuration := time.Since(startA)
-
-	//Start 'b' timer, get 'b' and capture time since.
-	startB := time.Now()
-	http.Get(b)
-	bDuration := time.Since(startB)
+	aDuration := measureResponseTime(a)
+	bDuration := measureResponseTime(b)
 
 	if aDuration < bDuration {
 		winner = a
@@ -25,4 +18,11 @@ func Racer(a, b string) (winner string) {
 	}
 
 	return
+}
+
+//measureResponseTime func takes a URL and measures the time to get a response
+func measureResponseTime(url string) time.Duration {
+	start := time.Now()
+	http.Get(url)
+	return time.Since(start)
 }

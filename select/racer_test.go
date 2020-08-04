@@ -1,4 +1,4 @@
-package main
+package racer
 
 import (
 	"net/http"
@@ -24,6 +24,9 @@ func TestRacer(t *testing.T) {
 		output := Racer(slowURL, fastURL)
 
 		assertStringEquals(t, output, fastURL)
+
+		slowServer.Close()
+		fastServer.Close()
 
 	})
 }
