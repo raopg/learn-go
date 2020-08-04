@@ -1,4 +1,4 @@
-package racer
+package main
 
 import "testing"
 
