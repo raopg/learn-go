@@ -127,6 +127,24 @@ func TestWalk(t *testing.T) {
 		}
 
 	})
+
+	t.Run("with functions", func(t *testing.T) {
+		aFunction := func() (Profile, Profile) {
+			return Profile{31, "Kiev"}, Profile{20, "Berlin"}
+		}
+
+		var output []string
+		expected := []string{"Kiev", "Berlin"}
+
+		walk(aFunction, func(input string) {
+			output = append(output, input)
+		})
+
+		if !reflect.DeepEqual(output, expected) {
+			t.Errorf("Got %v, want %v", output, expected)
+		}
+
+	})
 }
 
 func assertContains(t *testing.T, output []string, expected string) {

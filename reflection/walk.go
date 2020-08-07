@@ -39,6 +39,11 @@ func walk(data interface{}, fn func(input string)) {
 		for v, ok := val.Recv(); ok; v, ok = val.Recv() {
 			walk(v.Interface(), fn)
 		}
+	case reflect.Func:
+		result := val.Call(nil)
+		for _, res := range result {
+			walk(res.Interface(), fn)
+		}
 	}
 
 	for i := 0; i < numberOfValues; i++ {
